@@ -11,7 +11,7 @@ app.use(cors())
 app.use(express.json())
 
 // routes
-app.get('/api/users', (req, res) => res.send('users'))
+app.use('/api/users', require('./Routes/users'))
 
 module.exports = app
 

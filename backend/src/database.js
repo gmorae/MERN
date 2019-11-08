@@ -1,5 +1,4 @@
 const mysql = require('mysql')
-
 function conexao() {
     return mysql.createConnection({
         host: 'localhost',
@@ -16,3 +15,6 @@ if(conexao()){
 }else{
     console.log("erro")
 }
+
+// Exportando uma nova conexão para conseguir reutilizar
+module.exports = new conexao()

@@ -1,8 +1,14 @@
 const {Router} = require('express')
-const router = Router()
+const newRoute = Router()
+const { getUser, createUser, updateUser, deleteUser } = require('../Controllers/UserController')
 
 // rota / => /api/users
-router.route('/')
-    .get((req, res) => res.send("hello user"))
+newRoute.route('/')
+    .get(getUser)
+    .post(createUser)
+newRoute.route('/:id')
+    .get(getUser)
+    .put(updateUser)
+    .delete(deleteUser)
     
-module.exports = router
+module.exports = newRoute

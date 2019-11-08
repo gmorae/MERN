@@ -29,13 +29,13 @@ userCtrl.getUserId = async (req, res) => {
 
 userCtrl.updateUser = (req, res) => {
     const {nome, sobrenome, idade, dataDenascimento, linguagem, observacao} = req.body;
-    const sql = "Update programadores set nome = ?, sobrenome = ?, idade = ?, dataDenascimento = ?, linguagem = ?, observacao = ? where id_programadores = ? ;"
+    const sql = "Update "+ _table +" set nome = ?, sobrenome = ?, idade = ?, dataDenascimento = ?, linguagem = ?, observacao = ? where id_programadores = ? ;"
     connect.query(sql, [nome, sobrenome, idade, dataDenascimento, linguagem, observacao, req.params.id], (erro, result, fields) => {
         if (erro) {
             console.log('nada foi editado')
 
         }
-        console.log("Atualizado com sucesso")
+        console.log("Atualizado id => "+ req.params.id +" com sucesso")
     })
     res.end()
 }

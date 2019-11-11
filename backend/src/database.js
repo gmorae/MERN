@@ -5,7 +5,7 @@ function conexao() {
         port: '5050',
         user: 'root',
         password: '',
-        database: 'testaStefanini'
+        database: 'mern'
     })
 }
 

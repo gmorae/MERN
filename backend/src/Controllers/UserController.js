@@ -1,6 +1,6 @@
 const connect = require('../database')
 const userCtrl = {}
-const _table = 'programadores'
+const _table = 'users'
 userCtrl.getUser = async (req, res) => {
     const sql = await  "select * from "+ _table
     connect.query(sql, (err, ln, cl) => {
@@ -8,9 +8,9 @@ userCtrl.getUser = async (req, res) => {
     })
 }
 userCtrl.createUser = async (req, res) => {
-    const { nome, sobrenome, idade, dataDenascimento, linguagem, observacao} = req.body;
-    const sql = await "insert into "+ _table +" (nome, sobrenome, idade, dataDenascimento, linguagem, observacao) values (?, ?, ?, ?, ?, ?)"
-    connect.query(sql,[nome, sobrenome, idade, dataDenascimento, linguagem, observacao], (err, rs, fl) => {
+    const { nome} = req.body;
+    const sql = await "insert into "+ _table +" (nome) values (?)"
+    connect.query(sql,[nome], (err, rs, fl) => {
         if (err) {
             console.log(err)
             return
@@ -21,16 +21,16 @@ userCtrl.createUser = async (req, res) => {
 }
 
 userCtrl.getUserId = async (req, res) => {
-    const sql = await  "select * from "+ _table +" where id_programadores = ?"
+    const sql = await  "select * from "+ _table +" where id = ?"
     connect.query(sql, [req.params.id], (err, ln, cl) => {
         res.json(ln)
     })
 }
 
 userCtrl.updateUser = (req, res) => {
-    const {nome, sobrenome, idade, dataDenascimento, linguagem, observacao} = req.body;
-    const sql = "Update "+ _table +" set nome = ?, sobrenome = ?, idade = ?, dataDenascimento = ?, linguagem = ?, observacao = ? where id_programadores = ? ;"
-    connect.query(sql, [nome, sobrenome, idade, dataDenascimento, linguagem, observacao, req.params.id], (erro, result, fields) => {
+    const {nome} = req.body;
+    const sql = "Update "+ _table +" set nome = ? where id = ? ;"
+    connect.query(sql, [nome, req.params.id], (erro, result, fields) => {
         if (erro) {
             console.log('nada foi editado')
 
@@ -42,7 +42,7 @@ userCtrl.updateUser = (req, res) => {
 
 
 userCtrl.deleteUser = async (req, res) => {
-    const sql = await "delete from "+ _table +" where id_programadores = ?"
+    const sql = await "delete from "+ _table +" where id = ?"
     connect.query(sql, [req.params.id], (err, ln, cl) =>{
         if (err) {
             console.log(err)
